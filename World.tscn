@@ -1,0 +1,135 @@
+[gd_scene load_steps=10 format=1]
+
+[ext_resource path="res://global.gd" type="Script" id=1]
+[ext_resource path="res://tileset.xml" type="TileSet" id=2]
+[ext_resource path="res://Grid.gd" type="Script" id=3]
+[ext_resource path="res://Map.gd" type="Script" id=4]
+[ext_resource path="res://Player.gd" type="Script" id=5]
+[ext_resource path="res://icon.png" type="Texture" id=6]
+[ext_resource path="res://change.gd" type="Script" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 28.9919, 29.5054 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 24.77, 143.195 )
+
+[node name="World" type="Node2D"]
+
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+
+transform/pos = Vector2( 3.34448, -0.221497 )
+mode = 0
+tile_set = ExtResource( 2 )
+cell/size = Vector2( 64, 64 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 15, 0, 65536, 0, 65537, 1, 65538, 1, 65539, 1, 65540, 1, 65541, 1, 65542, 1, 65543, 1, 65544, 1, 65545, 1, 65546, 1, 65547, 1, 65548, 1, 65549, 1, 65550, 1, 65551, 0, 131072, 0, 131073, 1, 131074, 1, 131075, 1, 131076, 1, 131077, 1, 131078, 1, 131079, 1, 131080, 1, 131081, 1, 131082, 1, 131083, 1, 131084, 1, 131085, 1, 131086, 1, 131087, 0, 196608, 0, 196609, 1, 196610, 1, 196611, 1, 196612, 1, 196613, 1, 196614, 1, 196615, 1, 196616, 1, 196617, 1, 196618, 1, 196619, 1, 196620, 1, 196621, 1, 196622, 1, 196623, 3, 262144, 0, 262145, 1, 262146, 1, 262147, 1, 262148, 1, 262149, 1, 262150, 1, 262151, 1, 262152, 1, 262153, 1, 262154, 1, 262155, 1, 262156, 1, 262157, 1, 262158, 1, 262159, 3, 327680, 0, 327681, 1, 327682, 1, 327683, 1, 327684, 1, 327685, 1, 327686, 1, 327687, 1, 327688, 1, 327689, 1, 327690, 1, 327691, 1, 327692, 1, 327693, 1, 327694, 1, 327695, 3, 393216, 0, 393217, 1, 393218, 1, 393219, 1, 393220, 1, 393221, 1, 393222, 1, 393223, 1, 393224, 1, 393225, 1, 393226, 1, 393227, 1, 393228, 1, 393229, 1, 393230, 1, 393231, 0, 458752, 0, 458753, 1, 458754, 1, 458755, 1, 458756, 1, 458757, 1, 458758, 1, 458759, 1, 458760, 1, 458761, 1, 458762, 1, 458763, 1, 458764, 1, 458765, 1, 458766, 1, 458767, 0, 524288, 0, 524289, 0, 524290, 0, 524291, 0, 524292, 0, 524293, 0, 524294, 0, 524295, 0, 524296, 0, 524297, 0, 524298, 0, 524299, 0, 524300, 0, 524301, 0, 524302, 0, 524303, 0 )
+script/script = ExtResource( 3 )
+
+[node name="Grid" type="Node2D" parent="TileMap"]
+
+script/script = ExtResource( 4 )
+
+[node name="Player" type="KinematicBody2D" parent="TileMap"]
+
+transform/pos = Vector2( 506.175, 302.905 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="TileMap/Player"]
+
+anchor_mode = 1
+rotating = false
+current = false
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Player"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Sprite" type="Sprite" parent="TileMap/Player"]
+
+texture = ExtResource( 6 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+transform/pos = Vector2( 983.987, 282.255 )
+transform/scale = Vector2( 1, 2.97542 )
+input/pickable = true
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 0.873671, 0, 0, 0.216814, 2.78717, -1.88155 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 7 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Area2D"]
+
+transform/pos = Vector2( -1.85059, -2.48786 )
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+transform/pos = Vector2( 2.78717, -1.88155 )
+transform/scale = Vector2( 0.873671, 0.216814 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+
