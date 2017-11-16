@@ -26,20 +26,20 @@ func _ready():
 	item1.set_pos(map_to_world(Vector2(4,4)) + half_tile_size)
 	add_child(item1)
 	
-	for n in range(5):
-		var grid_pos = Vector2(randi() % int(grid_size.x), randi() % int(grid_size.y))
-		if grid_pos.x > 0 and grid_pos.x < grid_size.x and grid_pos.y > 0 and grid_pos.y < grid_size.y-1:
-			if not grid_pos in positions:
-				if grid_pos != beginning_pos:
-					positions.append(grid_pos)
-		else:
-			n = n - 1
-		
-	for pos in positions:
-		var new_obstacle = red.instance()
-		new_obstacle.set_pos(map_to_world(pos) + half_tile_size)
-		grid[pos.x][pos.y] = new_obstacle.get_name()
-		add_child(new_obstacle)
+	#for n in range(5):
+	#	var grid_pos = Vector2(randi() % int(grid_size.x), randi() % int(grid_size.y))
+	#	if grid_pos.x > 0 and grid_pos.x < grid_size.x and grid_pos.y > 0 and grid_pos.y < grid_size.y-1:
+	#		if not grid_pos in positions:
+	#			if grid_pos != beginning_pos:
+	#				positions.append(grid_pos)
+	#	else:
+	#		n = n - 1
+	#	
+	#for pos in positions:
+	#	var new_obstacle = red.instance()
+	#	new_obstacle.set_pos(map_to_world(pos) + half_tile_size)
+	#	grid[pos.x][pos.y] = new_obstacle.get_name()
+	#	add_child(new_obstacle)
 	####	
 		
 func is_cell_vacant(pos, direction):
