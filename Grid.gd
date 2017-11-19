@@ -5,11 +5,12 @@ var tile_size = get_cell_size()
 var half_tile_size = tile_size/2
 
 enum ENTITY_TYPES {PLAYER, ENEMY}
-var grid_size = Vector2(16, 9)
+var grid_size = Vector2(11, 11)
 var grid = []
 var positions = []
 onready var red = preload("res://Red.tscn")
 onready var arrow = preload("res://Arrow.tscn")
+onready var Player = preload("res://Player.tscn")
 
 func _ready():
 	randomize()
@@ -18,9 +19,9 @@ func _ready():
 		for y in range(grid_size.y):
 			grid[x].append(null)
 	
-	var player = get_node("Player")
-	var beginning_pos = update_child_pos(player)
-	player.set_pos(beginning_pos)
+	var player = Player.instance()
+	player.set_pos(map_to_world(Vector2(5,4)) + half_tile_size)
+	add_child(player)
 	
 	var item1 = arrow.instance()
 	item1.set_pos(map_to_world(Vector2(4,4)) + half_tile_size)

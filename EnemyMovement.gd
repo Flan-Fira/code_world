@@ -8,7 +8,7 @@ var grid
 var type
 var target_space = Vector2()
 var target_direction = Vector2()
-onready var Grid = preload("res://World.tscn")
+
 
 func _ready():
 	randomize()
