@@ -5,5 +5,4 @@ func _ready():
 
 func _enter_scene(body):
 	if(body.get_name() == "Player"):
-		global.moving = false
 		get_tree().change_scene("res://World.tscn")

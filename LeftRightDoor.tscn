@@ -1,18 +1,18 @@
 [gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://Arrow.gd" type="Script" id=1]
-[ext_resource path="res://arrow.png" type="Texture" id=2]
+[ext_resource path="res://Enter.gd" type="Script" id=1]
+[ext_resource path="res://black-square-LR.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 24.7891, 26.1531 )
+extents = Vector2( 26.056, 94.5664 )
 
-[node name="Arrow" type="Area2D"]
+[node name="LeftRightDoor" type="Area2D"]
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -0.263519, 0.263515 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -36,7 +36,6 @@ bounce = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -0.263519, 0.263515 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

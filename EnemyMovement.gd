@@ -15,10 +15,12 @@ func _ready():
 	grid = get_parent()
 	type = grid.ENEMY
 	set_fixed_process(true)
+	if global.bombAll:
+		queue_free()
 	pass
 
 func _fixed_process(delta):
-	if !global.moving:
+	if not global.enemies_moving:
 		var randiDirection = randi() % 5 + 1
 		if randiDirection == 1:
 			direction.y = -1
@@ -34,21 +36,20 @@ func _fixed_process(delta):
 			position = get_pos()
 			
 			
-	if not global.moving and direction != Vector2():
+	if not global.enemies_moving and direction != Vector2():
 		target_direction = direction
 		if grid.is_cell_vacant(get_pos(), target_direction):
 			target_space = grid.update_child_pos(self)
-			global.moving = true
-	elif global.moving:
+			global.enemies_moving = true
+	elif global.enemies_moving:
 		velocity = Speed * target_direction * delta
 		var pos = get_pos()
 		var distance_to_target = Vector2(abs(target_space.x - pos.x), abs(target_space.y - pos.y))
 		if abs(velocity.x) > distance_to_target.x:
 			velocity.x = distance_to_target.x * target_direction.x
-			global.moving = false
+			global.enemies_moving = false
 		if abs(velocity.y) > distance_to_target.y:
 			velocity.y = distance_to_target.y * target_direction.y
-			global.moving = false
+			global.enemies_moving = false
 		move(velocity)
 
-	
