@@ -15,11 +15,8 @@ onready var red = preload("res://Red.tscn")
 onready var Arrow = preload("res://Arrow.tscn")
 onready var Player = preload("res://Player.tscn")
 onready var Bomb = preload("res://Bomb.tscn")
-onready var Map = preload("res://createMap.tscn")
 
 func _ready():
-	var createmap = Map.instance()
-	add_child(createmap)
 	randomize()
 	for x in range(grid_size.x):
 		grid.append([])
