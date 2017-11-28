@@ -1,0 +1,127 @@
+[gd_scene load_steps=13 format=1]
+
+[ext_resource path="res://bat-1.tex" type="Texture" id=1]
+[ext_resource path="res://bat-2.tex" type="Texture" id=2]
+[ext_resource path="res://ghost-1.png" type="Texture" id=3]
+[ext_resource path="res://ghost-2.png" type="Texture" id=4]
+[ext_resource path="res://skull-1.png" type="Texture" id=5]
+[ext_resource path="res://skull-2.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends AnimatedSprite
+
+var tempElapsed = 0
+
+func _ready():
+   set_process(true)
+   
+func _process(delta):
+   tempElapsed = tempElapsed + delta
+   
+   if(tempElapsed < 0.1):
+      if(get_frame() == self.get_sprite_frames().get_frame_count('default')-1):
+         set_frame(0)
+      else:
+         self.set_frame(get_frame() + 1)
+      
+      tempElapsed = 0
+   
+"
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="GDScript" id=4]
+
+script/source = "extends AnimatedSprite
+
+var tempElapsed = 0
+
+func _ready():
+   set_process(true)
+   
+func _process(delta):
+   tempElapsed = (tempElapsed + delta)
+
+   
+   if(tempElapsed < 0.1):
+      if(get_frame() == self.get_sprite_frames().get_frame_count('default')-1):
+         set_frame(0)
+      else:
+         self.set_frame(get_frame() + 1)
+      
+      tempElapsed = 0
+   
+"
+
+[sub_resource type="SpriteFrames" id=5]
+
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 1.0
+} ]
+
+[sub_resource type="GDScript" id=6]
+
+script/source = "extends AnimatedSprite
+
+var tempElapsed = 0
+
+func _ready():
+   set_process(true)
+   
+func _process(delta):
+   tempElapsed = tempElapsed + delta
+   
+   if(tempElapsed < 0.1):
+      if(get_frame() == self.get_sprite_frames().get_frame_count('default')-1):
+         set_frame(0)
+      else:
+         self.set_frame(get_frame() + 1)
+      
+      tempElapsed = 0
+   
+"
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Bat" type="AnimatedSprite" parent="."]
+
+transform/pos = Vector2( 34.238, 35.8158 )
+frames = SubResource( 1 )
+animation = "default"
+script/script = SubResource( 2 )
+
+[node name="Ghost" type="AnimatedSprite" parent="."]
+
+transform/pos = Vector2( 100.73, 35.2554 )
+frames = SubResource( 3 )
+animation = "default"
+script/script = SubResource( 4 )
+
+[node name="Skull" type="AnimatedSprite" parent="."]
+
+transform/pos = Vector2( 164.267, 33.1246 )
+frames = SubResource( 5 )
+animation = "default"
+script/script = SubResource( 6 )
+
+
