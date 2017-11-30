@@ -4,6 +4,9 @@ var amountOfArrow
 var bombAll =  false
 var enemies_moving = true
 
+var health = 3
+
+
 # The last door the player has gone through.
 var last_door = null
 # The last room type the player has gone through

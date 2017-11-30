@@ -1,4 +1,5 @@
 extends Area2D
+
 func _ready():
 	connect("body_enter", self, "_enter_scene")
 

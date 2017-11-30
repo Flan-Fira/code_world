@@ -27,6 +27,8 @@ onready var Arrow = preload("res://Arrow.tscn")
 onready var Player = preload("res://Player.tscn")
 onready var Bomb = preload("res://Bomb.tscn")
 onready var Map = preload("res://createMap.tscn")
+onready var Health = preload("res://Health.tscn")
+onready var Item_UI = preload("res://Item_UI.tscn")
 
 func _ready():
 	# Will create a global map at the start of a 25 room by 25 room grid
@@ -40,6 +42,10 @@ func _ready():
 
 	add_child(createmap)
 	
+	var hp = Health.instance()
+	var item_ui = Item_UI.instance()
+	add_child(hp)
+	add_child(item_ui)
 	
 	randomize()
 	for x in range(grid_size.x):
