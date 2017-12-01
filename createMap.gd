@@ -58,3 +58,8 @@ func generate_map(minlength, maxlength, density, num_grass):
 	for count in range(1,num_grass,1):
 		calculation_map(minlength, maxlength, density)
 #
+
+
+func _on_Code_pressed():
+	get_node("/root/global").goto_scene("res://TextEdit.tscn")
+	pass # replace with function body

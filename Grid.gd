@@ -2,13 +2,15 @@ extends TileMap
 var tile_size = get_cell_size()
 var half_tile_size = tile_size/2
 
-enum ENTITY_TYPES {PLAYER, ENEMY}
+enum ENTITY_TYPES {PLAYER, ENEMY, BULLET}
+
 var grid_size = Vector2(11, 11)
 var grid = []
 var positions = []
 var randiX
 var randiY
 var finding = true
+var timing = false
 onready var TBDoor = preload("res://TopBotDoor.tscn")
 onready var LRDoor = preload("res://LeftRightDoor.tscn")
 onready var red = preload("res://Red.tscn")
@@ -16,6 +18,7 @@ onready var Arrow = preload("res://Arrow.tscn")
 onready var Player = preload("res://Player.tscn")
 onready var Bomb = preload("res://Bomb.tscn")
 onready var Map = preload("res://createMap.tscn")
+onready var Bullet = preload("res://bullet.tscn")
 
 func _ready():
 	var createmap = Map.instance()
@@ -28,26 +31,19 @@ func _ready():
 	_setPlayer()
 	_setItems()
 	_setDoors()
-#	_setEnemies()
+	_setEnemies()
+	setBullets()
 	
-#func _setEnemies():
-	#for n in range(5):
-	#	var grid_pos = Vector2(randi() % int(grid_size.x), randi() % int(grid_size.y))
-	#	if grid_pos.x > 0 and grid_pos.x < grid_size.x and grid_pos.y > 0 and grid_pos.y < grid_size.y-1:
-	#		if not grid_pos in positions:
-	#			if grid_pos != player.get_pos():
-	#				positions.append(grid_pos)
-	#	else:
-	#		n = n - 1
-	#	
-	#for pos in positions:
-	#	var new_obstacle = red.instance()
-	#	new_obstacle.set_pos(map_to_world(pos) + half_tile_size)
-	#	grid[pos.x][pos.y] = new_obstacle.get_name()
-	#	add_child(new_obstacle)
+func _setEnemies():
+	var enemy = red.instance()
+	enemy.set_pos(map_to_world(Vector2(2,5)) + half_tile_size)
+	add_child(enemy)
 	####	
-		
-		
+func setBullets():
+	var bullet = Bullet.instance()
+	bullet.set_pos(map_to_world(Vector2(0,random())) + half_tile_size)
+	add_child(bullet)
+	
 func _setPlayer():
 	randiX = random()
 	randiY = random()
@@ -56,14 +52,16 @@ func _setPlayer():
 	add_child(player)
 	var player_pos = Vector2(randiX, randiY)
 	positions.append(player_pos)
-	
+
 func _setItems():
-	var arrow = Arrow.instance()
-	arrow.set_pos(map_to_world(Vector2(4,4)) + half_tile_size)
-	add_child(arrow)
-	var bomb = Bomb.instance()
-	bomb.set_pos(map_to_world(Vector2(3,4)) + half_tile_size)
-	add_child(bomb)
+	if percentChance() > 50:
+		var arrow = Arrow.instance()
+		arrow.set_pos(map_to_world(Vector2(random(),random())) + half_tile_size)
+		add_child(arrow)
+	if percentChance() > 80:
+		var bomb = Bomb.instance()
+		bomb.set_pos(map_to_world(Vector2(random(),random())) + half_tile_size)
+		add_child(bomb)
 	
 func _setDoors():
 	###LEFT door
@@ -85,6 +83,9 @@ func _setDoors():
 	
 func random():
 	return randi() % 9+1
+
+func percentChance():
+	return randi() % 100 + 1
 	
 func is_cell_vacant(pos, direction):
 	var grid_pos = world_to_map(pos) + direction
@@ -95,13 +96,23 @@ func is_cell_vacant(pos, direction):
 	
 func update_child_pos(child_node):
 	var grid_pos = world_to_map(child_node.get_pos())
-	print(grid_pos)
 	grid[grid_pos.x][grid_pos.y] = null
 	
 	var new_grid_pos = grid_pos + child_node.direction
 	grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
-	
 	var target_pos = map_to_world(new_grid_pos) + half_tile_size
 	return target_pos
 	pass
 	
+func update_bullet_pos(child_node):
+	var grid_pos = world_to_map(child_node.get_pos())
+	grid[grid_pos.x][grid_pos.y] = null
+	var new_grid_pos = grid_pos + child_node.direction
+	grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
+	var target_pos = map_to_world(new_grid_pos) + half_tile_size
+	if new_grid_pos.x == 10 or new_grid_pos.y == 10:
+		grid[new_grid_pos.x][new_grid_pos.y] = null
+		setBullets()
+		global.reachEnd = true
+	return target_pos
+	pass
