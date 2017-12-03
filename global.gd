@@ -1,12 +1,18 @@
 extends Node2D
 var current_scene = null
-var amountOfArrow
+var amountOfArrow = 0
 var bombAll =  false
 var enemies_moving = true
 
+# Character values
+
 var health = 3
+var score = 0
 
+# Position values
 
+# The amount of different rooms the player has gone through in each level.
+var room_counter = 1
 # The last door the player has gone through.
 var last_door = null
 # The last room type the player has gone through
@@ -17,6 +23,8 @@ var locationY = 13
 
 # Map that encompasses the whole level
 var global_map
+
+# Creates a new global map / level
 func create_global_map():
 	if (global_map == null):
 		print ("creating map")
@@ -27,6 +35,21 @@ func create_global_map():
 				global_map[x].append(0)
 				
 	global_map[locationX][locationY] = [1,1,1,1]
+
+# Creates a new level, resting all global position values while leaving the character values alone
+func create_new_level():
+	global_map = null
+	room_counter = 1
+	room_counter = 1
+	last_door = null
+	last_room = [1,1,1,1]
+	locationX = 13
+	locationY = 13
+	
+	
+
+
+
 
 # Tracks the characters position in the global map.
 func move_global_map():
@@ -47,6 +70,9 @@ func move_global_map():
 	
 	print ("x: " + str(locationX) + " y: " + str(locationY))
 	pass
+	
+
+	
 
 # Checks if the room alread exists on the global map.
 func check_room_global_map():
@@ -61,6 +87,32 @@ func check_room_global_map():
 func add_room_global_map():
 	global_map[locationX][locationY] = last_room
 	
+
+
+
+onready var arrow_label = get_tree().get_root().get_node("Item_UI.tscn/Node2D/Panel/Arrow Label")
+onready var score_label = get_tree().get_root().get_node("Item_UI.tscn/Node2D/Panel/Score Number")
+
+
+func update_arrow_UI():
+	arrow_label.set_text(amountOfArrow)
+	pass
+	
+func update_score_UI():
+	score_label.set_tex(score)
+	pass
+
+
+
+
+
+
+
+
+
+
+
+
 
 func _ready():
 	var root = get_tree().get_root()

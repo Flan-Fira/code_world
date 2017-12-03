@@ -6,17 +6,18 @@ var full = Rect2(64,0,64,64)
 
 func _ready():
 	
+	# Updates health UI whenever it is called
 	update_health()
 	
 	pass
 
+# HP becomes full
 func turn_full(node):
-	print("full")
 	get_node(node).set_region_rect(full)
 	pass
 	
+# HP becomes empty
 func turn_empty(node):
-	print("empty")
 	get_node(node).set_region_rect(empty)
 	pass
 	

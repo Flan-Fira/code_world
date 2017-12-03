@@ -79,6 +79,7 @@ func generate_map(minlength, maxlength, density, num_grass):
 		calculation_map(minlength, maxlength, density)
 
 func random_door():
+	# Godot doesn't let you choose randomly between 0 and 1; instead use a random number from 1 to 10 and check if it's even or odd
 	randomize()
 	var rand = randi() % 10 + 1
 	return rand % 2
@@ -87,7 +88,7 @@ func random_room():
 	var check = global.check_room_global_map()
 	
 	if check == null:
-		# Godot doesn't let you choose randomly between 0 and 1; instead use a random number from 1 to 10 and check if it's even or odd
+
 		room_type[0] = random_door()
 		room_type[1] = random_door()
 		room_type[2] = random_door()
@@ -122,11 +123,9 @@ func random_room():
 		if global.locationX == 24:
 			room_type[3] = 0
 			
+		global.room_counter = global.room_counter + 1
 		global.last_room = room_type
 		global.add_room_global_map()
 	else:
 		room_type = check
 		global.last_room = room_type
-	
-	
-	print (global.last_room)
