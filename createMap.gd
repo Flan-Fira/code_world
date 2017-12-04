@@ -100,18 +100,12 @@ func random_room():
 			room_type[1] = 1
 			room_type[2] = 1
 			room_type[3] = 1
-			
-		# There will always be a door from the way the player came from
-		if global.last_door == null:
-			1 == 1
-		elif global.last_door.casecmp_to("TopDoor") == 0:
-			room_type[1] = 1
-		elif global.last_door.casecmp_to("BotDoor") == 0:
-			room_type[0] = 1
-		elif global.last_door.casecmp_to("LeftDoor") == 0:
-			room_type[3] = 1
-		elif global.last_door.casecmp_to("RightDoor") == 0:
-			room_type[2] = 1
+		
+		# Checks if the room should have 
+		var check_oneway = global.check_room_oneway_doors()
+		for x in range (check_oneway.size()):
+			if check_oneway[x] == 1 or check_oneway[x] == 0:
+				room_type[x] = check_oneway[x]
 		
 		# Ensures that there won't be any doors leading out of the global map.
 		if global.locationY == 0:

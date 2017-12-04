@@ -10,6 +10,5 @@ func _ready():
 	
 func _enter_scene(body):
 	if(body.get_name() == "Player"):
-		arrow_label = get_node("Arrow Label")
 		global.amountOfArrow = global.amountOfArrow + 10
 		queue_free()

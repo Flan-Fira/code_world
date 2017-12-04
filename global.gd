@@ -45,11 +45,6 @@ func create_new_level():
 	last_room = [1,1,1,1]
 	locationX = 13
 	locationY = 13
-	
-	
-
-
-
 
 # Tracks the characters position in the global map.
 func move_global_map():
@@ -83,41 +78,33 @@ func check_room_global_map():
 		print ("Old room found")
 		return global_map[locationX][locationY]
 
+func check_oneway_door(x,y):
+	if global_map[x][y] == 0:
+		return [5,5,5,5]
+	else:
+		return global_map[x][y]
+
+func check_room_oneway_doors():
+	# Checks the up door
+	var up = (check_oneway_door(locationX, locationY - 1))[1]
+	var down = (check_oneway_door(locationX, locationY + 1))[0]
+	var left = (check_oneway_door(locationX - 1, locationY))[3]
+	var right = (check_oneway_door(locationX + 1, locationY))[2]
+	
+	var oneway_check = [up,down,left,right]
+	return oneway_check
+
+
 # Adds the current room to the global map.
 func add_room_global_map():
 	global_map[locationX][locationY] = last_room
 	
 
-
-
-onready var arrow_label = get_tree().get_root().get_node("Item_UI.tscn/Node2D/Panel/Arrow Label")
-onready var score_label = get_tree().get_root().get_node("Item_UI.tscn/Node2D/Panel/Score Number")
-
-
-func update_arrow_UI():
-	arrow_label.set_text(amountOfArrow)
-	pass
-	
-func update_score_UI():
-	score_label.set_tex(score)
-	pass
-
-
-
-
-
-
-
-
-
-
-
-
-
 func _ready():
 	var root = get_tree().get_root()
 	current_scene = root.get_child( root.get_child_count() -1 )
-	get_tree().change_scene("res://MapControl.tscn")
+	get_tree().change_scene("res://Title.tscn")
+	#get_tree().change_scene("res://MapControl.tscn")
 
 
 func goto_scene(path):
