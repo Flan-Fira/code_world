@@ -4,6 +4,8 @@ var amountOfArrow = 0
 var bombAll =  false
 var enemies_moving = true
 
+var title_screen = 0
+
 # Character values
 
 var health = 3
@@ -103,8 +105,11 @@ func add_room_global_map():
 func _ready():
 	var root = get_tree().get_root()
 	current_scene = root.get_child( root.get_child_count() -1 )
-	get_tree().change_scene("res://Title.tscn")
-	#get_tree().change_scene("res://MapControl.tscn")
+	
+	if (title_screen == 0):
+		get_tree().change_scene("res://Title.tscn")
+	else:
+		get_tree().change_scene("res://MapControl.tscn")
 
 
 func goto_scene(path):
