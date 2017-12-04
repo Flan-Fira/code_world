@@ -5,6 +5,4 @@ func _ready():
 
 func _enter_scene(body):
 	if(body.get_name() == "Player"):
-		global.moveEnemy = true
-	else:
-		global.moveEnemy = false
+		queue_free()

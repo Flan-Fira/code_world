@@ -19,7 +19,8 @@ onready var Player = preload("res://Player.tscn")
 onready var Bomb = preload("res://Bomb.tscn")
 onready var Map = preload("res://createMap.tscn")
 onready var Bullet = preload("res://bullet.tscn")
-
+var player
+var enemy
 func _ready():
 	var createmap = Map.instance()
 	add_child(createmap)
@@ -28,6 +29,7 @@ func _ready():
 		grid.append([])
 		for y in range(grid_size.y):
 			grid[x].append(null)
+	set_process(true)
 	_setPlayer()
 	_setItems()
 	_setDoors()
@@ -35,7 +37,7 @@ func _ready():
 	setBullets()
 	
 func _setEnemies():
-	var enemy = red.instance()
+	enemy = red.instance()
 	enemy.set_pos(map_to_world(Vector2(2,5)) + half_tile_size)
 	add_child(enemy)
 	####	
@@ -47,7 +49,7 @@ func setBullets():
 func _setPlayer():
 	randiX = random()
 	randiY = random()
-	var player = Player.instance()
+	player = Player.instance()
 	player.set_pos(map_to_world(Vector2(randiX, randiY)) + half_tile_size)
 	add_child(player)
 	var player_pos = Vector2(randiX, randiY)
@@ -116,3 +118,13 @@ func update_bullet_pos(child_node):
 		global.reachEnd = true
 	return target_pos
 	pass
+
+func _process(delta):
+	if global.playerTurn:
+		player.set_process(true)
+	else:
+		player.set_process(false)
+	if global.enemyTurn:
+		enemy.set_process(true)
+	else:
+		enemy.set_process(false)

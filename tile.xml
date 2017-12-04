@@ -9,12 +9,12 @@
 
 	</resource>
 	<resource type="NavigationPolygon" path="local://2">
-		<vector2_array name="vertices" len="4"> 			32.0754, -31.722, 31.8817, 32.0086, -32.2363, 31.8149, -32.2363, -31.9157 </vector2_array>
+		<vector2_array name="vertices" len="4"> 			-32.1407, -32.1884, 32.075, -32.1884, 31.9173, 31.8695, -31.9829, 31.8695 </vector2_array>
 		<array name="polygons" len="1" shared="false">
 			<int_array  len="4"> 				0, 1, 2, 3 </int_array>
 		</array>
 		<array name="outlines" len="1" shared="false">
-			<vector2_array  len="4"> 				-32.2363, -31.9157, -32.2363, 31.8149, 31.8817, 32.0086, 32.0754, -31.722 </vector2_array>
+			<vector2_array  len="4"> 				-32.1407, -32.1884, 32.075, -32.1884, 31.9173, 31.8695, -31.9829, 31.8695 </vector2_array>
 		</array>
 
 	</resource>

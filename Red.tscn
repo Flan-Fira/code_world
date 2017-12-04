@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 31.6186, 32.082 )
+extents = Vector2( 5.46868, 8.01442 )
 
 [node name="Red" type="KinematicBody2D"]
 
@@ -21,7 +21,7 @@ script/script = ExtResource( 1 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 5.82055, 0, 0, 3.96169, 1.78526, 1.23604 )
+shapes/0/transform = Matrix32( 5.82055, 0, 0, 3.96169, -0.0197182, -0.0419159 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -51,7 +51,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 
-transform/pos = Vector2( 1.78526, 1.23604 )
+transform/pos = Vector2( -0.0197182, -0.0419159 )
 transform/scale = Vector2( 5.82055, 3.96169 )
 shape = SubResource( 1 )
 trigger = false

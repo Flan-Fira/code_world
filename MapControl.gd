@@ -1,7 +1,7 @@
 extends TileMap
 var tile_size = get_cell_size()
 var half_tile_size = tile_size/2
-var interpeter
+var interpreter
 enum ENTITY_TYPES {PLAYER, ENEMY}
 var grid_size = Vector2(11, 11)
 var grid = []
@@ -11,13 +11,13 @@ var randiY
 var finding = true
 onready var TBDoor = preload("res://TopBotDoor.tscn")
 onready var LRDoor = preload("res://LeftRightDoor.tscn")
-onready var red = preload("res://Red.tscn")
+onready var red = preload("res://Enemy.tscn")
 onready var Arrow = preload("res://Arrow.tscn")
 onready var Player = preload("res://Player.tscn")
 onready var Bomb = preload("res://Bomb.tscn")
 
 func _ready():
-	interpreter = Interpreter.new()
+#	interpreter = Interpreter.new()
 	randomize()
 	for x in range(grid_size.x):
 		grid.append([])

@@ -5,7 +5,10 @@ var bombAll =  false
 var die = false
 var settingBullet = false
 var reachEnd = false
-var moveEnemy = false
+var playerTurn = true
+var enemyTurn = false
+var playerPos = Vector2()
+
 func _ready():
 	var root = get_tree().get_root()
 	current_scene = root.get_child( root.get_child_count() -1 )

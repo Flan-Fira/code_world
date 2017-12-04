@@ -11,20 +11,18 @@ extents = Vector2( 32.2349, 31.8717 )
 
 [sub_resource type="NavigationPolygon" id=2]
 
-vertices = Vector2Array( 32.0754, -31.722, 31.8817, 32.0086, -32.2363, 31.8149, -32.2363, -31.9157 )
+vertices = Vector2Array( -32.1407, -32.1884, 32.075, -32.1884, 31.9173, 31.8695, -31.9829, 31.8695 )
 polygons = [ IntArray( 0, 1, 2, 3 ) ]
-outlines = [ Vector2Array( -32.2363, -31.9157, -32.2363, 31.8149, 31.8817, 32.0086, 32.0754, -31.722 ) ]
+outlines = [ Vector2Array( -32.1407, -32.1884, 32.075, -32.1884, 31.9173, 31.8695, -31.9829, 31.8695 ) ]
 
 [node name="createTiles" type="Node2D"]
 
-[node name="Navigation2D" type="Navigation2D" parent="."]
-
-[node name="Wall" type="Sprite" parent="Navigation2D"]
+[node name="Wall" type="Sprite" parent="."]
 
 transform/pos = Vector2( -84.0637, 0.440125 )
 texture = ExtResource( 1 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Navigation2D/Wall"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -40,7 +38,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/Wall/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D"]
 
 shape = SubResource( 1 )
 trigger = false
@@ -49,12 +47,14 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Floor" type="Sprite" parent="."]
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="Floor" type="Sprite" parent="Navigation2D"]
 
 transform/pos = Vector2( 259.233, 3.52099 )
 texture = ExtResource( 2 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Floor"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Navigation2D/Floor"]
 
 input/pickable = false
 collision/layers = 1
@@ -67,10 +67,14 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Floor"]
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D/Floor"]
 
+transform/pos = Vector2( 0.000305176, -5.00679e-06 )
 navpoly = SubResource( 2 )
 enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Door" type="Sprite" parent="."]
 

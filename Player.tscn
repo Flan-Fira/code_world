@@ -6,11 +6,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 28.7891, 28.7223 )
+extents = Vector2( 28.7891, 30.1281 )
 
-[node name="Player" type="KinematicBody2D" groups=[
-"Player",
-]]
+[node name="Player" type="KinematicBody2D"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -20,6 +18,10 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -36,9 +38,5 @@ bounce = 0.0
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
-
-[node name="Sprite" type="Sprite" parent="."]
-
-texture = ExtResource( 2 )
 
 
