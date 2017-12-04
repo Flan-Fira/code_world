@@ -9,10 +9,8 @@ var grid
 var type
 var target_space = Vector2()
 var target_direction = Vector2()
-var value = 1
 
 func _ready():
-	
 	grid = get_parent()
 	type = grid.PLAYER
 	set_fixed_process(true)
@@ -55,6 +53,3 @@ func _fixed_process(delta):
 			velocity.y = distance_to_target.y * target_direction.y
 			moving = false
 		move(velocity)
-
-
-

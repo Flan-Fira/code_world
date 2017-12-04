@@ -63,7 +63,7 @@ func _setItems():
 	bomb.set_pos(map_to_world(Vector2(3,4)) + half_tile_size)
 	add_child(bomb)
 	var potion = Potion.instance()
-	potion.set_pos(map_to_world(Vector2(5,5)) + half_tile_size)
+	potion.set_pos(map_to_world(Vector2(2,5)) + half_tile_size)
 	add_child(potion)
 	
 func _setDoors():

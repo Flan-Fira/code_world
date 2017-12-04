@@ -79,6 +79,7 @@ func generate_map(minlength, maxlength, density, num_grass):
 		calculation_map(minlength, maxlength, density)
 
 func random_door():
+	# Godot doesn't let you choose randomly between 0 and 1; instead use a random number from 1 to 10 and check if it's even or odd
 	randomize()
 	var rand = randi() % 10 + 1
 	return rand % 2
@@ -87,7 +88,7 @@ func random_room():
 	var check = global.check_room_global_map()
 	
 	if check == null:
-		# Godot doesn't let you choose randomly between 0 and 1; instead use a random number from 1 to 10 and check if it's even or odd
+
 		room_type[0] = random_door()
 		room_type[1] = random_door()
 		room_type[2] = random_door()
@@ -99,18 +100,12 @@ func random_room():
 			room_type[1] = 1
 			room_type[2] = 1
 			room_type[3] = 1
-			
-		# There will always be a door from the way the player came from
-		if global.last_door == null:
-			1 == 1
-		elif global.last_door.casecmp_to("TopDoor") == 0:
-			room_type[1] = 1
-		elif global.last_door.casecmp_to("BotDoor") == 0:
-			room_type[0] = 1
-		elif global.last_door.casecmp_to("LeftDoor") == 0:
-			room_type[3] = 1
-		elif global.last_door.casecmp_to("RightDoor") == 0:
-			room_type[2] = 1
+		
+		# Checks if the room should have 
+		var check_oneway = global.check_room_oneway_doors()
+		for x in range (check_oneway.size()):
+			if check_oneway[x] == 1 or check_oneway[x] == 0:
+				room_type[x] = check_oneway[x]
 		
 		# Ensures that there won't be any doors leading out of the global map.
 		if global.locationY == 0:
@@ -122,11 +117,9 @@ func random_room():
 		if global.locationX == 24:
 			room_type[3] = 0
 			
+		global.room_counter = global.room_counter + 1
 		global.last_room = room_type
 		global.add_room_global_map()
 	else:
 		room_type = check
 		global.last_room = room_type
-	
-	
-	print (global.last_room)

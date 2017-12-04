@@ -19,6 +19,8 @@ var bombX
 var bombY
 var potionX
 var potionY
+var stairX
+var stairY
 
 onready var TDoor = preload("res://TopDoor.tscn")
 onready var BDoor = preload("res://BotDoor.tscn")
@@ -31,6 +33,7 @@ onready var Bomb = preload("res://Bomb.tscn")
 onready var Map = preload("res://createMap.tscn")
 onready var Health = preload("res://Health.tscn")
 onready var Item_UI = preload("res://Item_UI.tscn")
+onready var Stair = preload("res://Stair.tscn")
 onready var Potion = preload("res://Potion.tscn")
 
 func _ready():
@@ -106,29 +109,27 @@ func _setPlayer():
 	add_child(player)
 	var player_pos = Vector2(playerX, playerY)
 	positions.append(player_pos)
-	
+
+
 func _setItems():
 	
 	while (true):
-		randiX = random()
-		randiY = random()
-	
+		random_X_Y()
 		arrowX = randiX
 		arrowY = randiY
 		
-		randiX = random()
-		randiY = random()
-	
+		random_X_Y()
 		bombX = randiX
 		bombY = randiY
 		
-		randiX = random()
-		randiY = random()
-		
+		random_X_Y()
 		potionX = randiX
 		potionY = randiY
 		
-		if (arrowX != bombX && arrowY != bombY):
+		random_X_Y()
+		stairX = randiX
+		stairY = randiX
+		if (arrowX != bombX != stairX != potionX && arrowY != bombY != stairY != potionY):
 			break
 	
 	var arrow = Arrow.instance()
@@ -142,6 +143,20 @@ func _setItems():
 	var potion = Potion.instance()
 	potion.set_pos(map_to_world(Vector2(potionX,potionY)) + half_tile_size)
 	add_child(potion)
+
+	_setStairs()
+
+
+func _setStairs():
+	if (global.room_counter > 3 + global.score):
+		randomize()
+		var c = randi() % (3 + global.score + 1)
+		print (c)
+		if (c == 1):
+			var stair = Stair.instance()
+			stair.set_pos(map_to_world(Vector2(random(),random())) + half_tile_size)
+			add_child(stair)
+	pass
 
 func _setDoors():
 	###LEFT door
@@ -163,6 +178,12 @@ func _setDoors():
 	
 func random():
 	return randi() % 9+1
+	
+func random_X_Y():
+	randiX = random()
+	randiY = random()
+	pass
+
 	
 func is_cell_vacant(pos, direction):
 	var grid_pos = world_to_map(pos) + direction

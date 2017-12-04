@@ -40,14 +40,3 @@ func update_health():
 		turn_full("Health 3")
 		turn_empty("Health 2")
 		turn_full("Health 1")
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
