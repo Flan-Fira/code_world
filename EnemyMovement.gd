@@ -1,55 +1,65 @@
 extends KinematicBody2D
-var velocity = Vector2()
-
+var speed = 0
+var moving_speed = 100
+var enemy = self
 var direction = Vector2()
-var position = Vector2()
-var Speed = 1
 var grid
 var type
+var velocity = Vector2()
+var moving = false
 var target_space = Vector2()
 var target_direction = Vector2()
-
-
+var body
+var time
 func _ready():
-	randomize()
 	grid = get_parent()
 	type = grid.ENEMY
-	set_fixed_process(true)
-	if global.bombAll:
-		queue_free()
-	pass
+	set_process(global.enemyTurn)
 
-func _fixed_process(delta):
-	if not global.enemies_moving:
-		var randiDirection = randi() % 5 + 1
-		if randiDirection == 1:
-			direction.y = -1
-			position = get_pos()
-		elif randiDirection == 2:
-			direction.y = 1
-			position = get_pos()
-		elif randiDirection == 3:
-			direction.x = -1
-			position = get_pos()
-		elif randiDirection == 4:
-			direction.x = 1
-			position = get_pos()
-			
-			
-	if not global.enemies_moving and direction != Vector2():
+func _process(delta):
+#	if global.bombAll:
+#		queue_free()
+#	body = get_node("Area2D").get_overlapping_bodies()
+#	var player = get_node("/root/World/MapControl/Player")
+#	if body.size() != 0:
+#		for area in body:
+#			if global.moveEnemy:
+#				if (area.get_global_pos().x < self.get_global_pos().x):
+#					direction.x = -1
+#				elif (area.get_global_pos().x > self.get_global_pos().x):
+#					direction.x = 1
+#				if (area.get_global_pos().y < self.get_global_pos().y):
+#					direction.y = -1
+#				elif (area.get_global_pos().y > self.get_global_pos().y):
+#					direction.y = 1
+#	if global.enemyTurn:
+	var move = randi() % 4+1
+	if move == 1:
+		direction.x=1
+	if move == 2:
+		direction.x=-1
+	if move ==3:
+		direction.y=1
+	if move == 4:
+		direction.y= -1
+	if not moving and direction != Vector2():
 		target_direction = direction
 		if grid.is_cell_vacant(get_pos(), target_direction):
 			target_space = grid.update_child_pos(self)
-			global.enemies_moving = true
-	elif global.enemies_moving:
-		velocity = Speed * target_direction * delta
+			moving = true
+	elif moving:
+		speed = moving_speed
+		velocity = speed * target_direction * delta
 		var pos = get_pos()
 		var distance_to_target = Vector2(abs(target_space.x - pos.x), abs(target_space.y - pos.y))
 		if abs(velocity.x) > distance_to_target.x:
 			velocity.x = distance_to_target.x * target_direction.x
-			global.enemies_moving = false
+			global.enemyTurn = false
+			global.playerTurn = true
+			moving = false
 		if abs(velocity.y) > distance_to_target.y:
 			velocity.y = distance_to_target.y * target_direction.y
-			global.enemies_moving = false
+			global.enemyTurn = false
+			global.playerTurn = true
+			moving = false
 		move(velocity)
-

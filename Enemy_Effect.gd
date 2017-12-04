@@ -6,7 +6,6 @@ func _ready():
 
 func _enter_scene(body):
 	if(body.get_name() == "Player"):
-		global.health += 1
-		get_parent().get_node("Node2D/Health Panel").update_health()
-		print(global.health)
+		global.health -= 1
+		get_parent().get_parent().get_node("Node2D/Health Panel").update_health()
 		queue_free()

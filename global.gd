@@ -3,7 +3,14 @@ var current_scene = null
 var amountOfArrow = 0
 var bombAll =  false
 var enemies_moving = true
-
+var settingBullet = false
+var reachEnd = false
+var playerTurn = true
+var enemyTurn = false
+var playerPos = Vector2()
+var die = false
+var arrowDirection = Vector2()
+var arrowAppearance = Vector2()
 var title_screen = 0
 
 # Character values
