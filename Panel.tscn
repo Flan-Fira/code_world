@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://tileset.xml" type="TileSet" id=1]
-[ext_resource path="res://Grid.gd" type="Script" id=2]
-[ext_resource path="res://Map.gd" type="Script" id=3]
-[ext_resource path="res://Exit.gd" type="Script" id=4]
+[ext_resource path="res://Grid.gd" type="Script" id=1]
+[ext_resource path="res://Map.gd" type="Script" id=2]
+[ext_resource path="res://Exit.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -39,7 +38,7 @@ margin/bottom = 699.0
 [node name="TileMap" type="TileMap" parent="."]
 
 mode = 0
-tile_set = ExtResource( 1 )
+tile_set = null
 cell/size = Vector2( 64, 64 )
 cell/quadrant_size = 16
 cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -53,14 +52,14 @@ collision/layers = 1
 collision/mask = 1
 occluder/light_mask = 1
 tile_data = IntArray( 0, 0, 1, 0, 2, 0, 3, 4, 4, 4, 5, 4, 6, 4, 7, 0, 8, 0, 9, 0, 10, 0, 65536, 0, 65537, 1, 65538, 1, 65539, 1, 65540, 1, 65541, 1, 65542, 1, 65543, 1, 65544, 1, 65545, 1, 65546, 0, 131072, 0, 131073, 1, 131074, 1, 131075, 1, 131076, 1, 131077, 1, 131078, 1, 131079, 1, 131080, 1, 131081, 1, 131082, 0, 196608, 0, 196609, 1, 196610, 1, 196611, 1, 196612, 1, 196613, 1, 196614, 1, 196615, 1, 196616, 1, 196617, 1, 196618, 0, 262144, 4, 262145, 1, 262146, 1, 262147, 1, 262148, 1, 262149, 1, 262150, 1, 262151, 1, 262152, 1, 262153, 1, 262154, 4, 327680, 4, 327681, 1, 327682, 1, 327683, 1, 327684, 1, 327685, 1, 327686, 1, 327687, 1, 327688, 1, 327689, 1, 327690, 4, 393216, 4, 393217, 1, 393218, 1, 393219, 1, 393220, 1, 393221, 1, 393222, 1, 393223, 1, 393224, 1, 393225, 1, 393226, 4, 458752, 0, 458753, 1, 458754, 1, 458755, 1, 458756, 1, 458757, 1, 458758, 1, 458759, 1, 458760, 1, 458761, 1, 458762, 0, 524288, 0, 524289, 1, 524290, 1, 524291, 1, 524292, 1, 524293, 1, 524294, 1, 524295, 1, 524296, 1, 524297, 1, 524298, 0, 589824, 0, 589825, 1, 589826, 1, 589827, 1, 589828, 1, 589829, 1, 589830, 1, 589831, 1, 589832, 1, 589833, 1, 589834, 0, 655360, 0, 655361, 0, 655362, 0, 655363, 0, 655364, 4, 655365, 4, 655366, 4, 655367, 0, 655368, 0, 655369, 0, 655370, 0 )
-script/script = ExtResource( 2 )
+script/script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Node2D" type="Node2D" parent="TileMap"]
 
-script/script = ExtResource( 3 )
+script/script = ExtResource( 2 )
 
 [node name="Exit" type="Area2D" parent="TileMap"]
 
@@ -83,7 +82,7 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 4 )
+script/script = ExtResource( 3 )
 
 [node name="Left" type="CollisionShape2D" parent="TileMap/Exit"]
 

@@ -17,8 +17,8 @@ func _ready():
 	set_process(global.enemyTurn)
 
 func _process(delta):
-	if global.bombAll:
-		queue_free()
+#	if global.bombAll:
+#		queue_free()
 #	body = get_node("Area2D").get_overlapping_bodies()
 #	var player = get_node("/root/World/MapControl/Player")
 #	if body.size() != 0:

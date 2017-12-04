@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 5.46868, 8.01442 )
+extents = Vector2( 31.9105, 32.082 )
 
 [node name="Red" type="KinematicBody2D"]
 
@@ -21,7 +21,7 @@ script/script = ExtResource( 1 )
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 5.82055, 0, 0, 3.96169, -0.0197182, -0.0419159 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -29,12 +29,15 @@ linear_damp = 0.1
 angular_damp = 1.0
 script/script = ExtResource( 2 )
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
 [node name="Sprite" type="Sprite" parent="Area2D"]
 
 texture = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Area2D"]
 
@@ -45,16 +48,5 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-
-transform/pos = Vector2( -0.0197182, -0.0419159 )
-transform/scale = Vector2( 5.82055, 3.96169 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
 
 
