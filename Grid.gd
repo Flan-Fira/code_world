@@ -2,7 +2,7 @@ extends TileMap
 var tile_size = get_cell_size()
 var half_tile_size = tile_size/2
 
-enum ENTITY_TYPES {PLAYER, ENEMY, BULLET, ARROW}
+enum ENTITY_TYPES {PLAYER, ENEMY, BULLET, ARROW, FIREBALL}
 var grid_size = Vector2(11, 11)
 var grid = []
 var positions = []
@@ -36,9 +36,10 @@ onready var Item_UI = preload("res://Item_UI.tscn")
 onready var Stair = preload("res://Stair.tscn")
 onready var Potion = preload("res://Potion.tscn")
 onready var Bullet = preload("res://bullet.tscn")
-
+onready var ShootingArrow = preload("res://shootingArrow.tscn")
 var player
 var enemy
+var shootArrow
 func _ready():
 	# Will create a global map at the start of a 25 room by 25 room grid
 	if (global.global_map == null):
@@ -67,7 +68,7 @@ func _ready():
 	_setDoors()
 	_setEnemies()
 	setBullets()
-	
+	shootingArrow()
 func _setEnemies():
 	enemy = red.instance()
 	enemy.set_pos(map_to_world(Vector2(2,5)) + half_tile_size)
@@ -100,6 +101,7 @@ func _setPlayer():
 	player.set_pos(map_to_world(Vector2(playerX, playerY)) + half_tile_size)
 	add_child(player)
 	var player_pos = Vector2(playerX, playerY)
+	global.playerPos = player_pos
 	positions.append(player_pos)
 
 
@@ -143,7 +145,10 @@ func setBullets():
 	bullet.set_pos(map_to_world(Vector2(0,random())) + half_tile_size)
 	add_child(bullet)
 	
-
+func shootingArrow():
+	shootArrow = ShootingArrow.instance()
+	shootArrow.set_pos(map_to_world(Vector2(global.playerPos.x+1, global.playerPos.y+1) + half_tile_size))
+	add_child(shootArrow)
 
 func _setStairs():
 	if (global.room_counter > 3 + global.score):
@@ -196,22 +201,33 @@ func update_child_pos(child_node):
 	
 	var new_grid_pos = grid_pos + child_node.direction
 	grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
-	
+	global.playerPos = new_grid_pos
 	var target_pos = map_to_world(new_grid_pos) + half_tile_size
 	return target_pos
 	pass
 	
-
 func update_bullet_pos(child_node):
 	var grid_pos = world_to_map(child_node.get_pos())
 	grid[grid_pos.x][grid_pos.y] = null
 	var new_grid_pos = grid_pos + child_node.direction
 	grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
 	var target_pos = map_to_world(new_grid_pos) + half_tile_size
-	if new_grid_pos.x == 10 or new_grid_pos.y == 10:
+	if new_grid_pos.x == 10 or new_grid_pos.y == 10 or new_grid_pos.x == 0 or new_grid_pos.y == 0:
 		grid[new_grid_pos.x][new_grid_pos.y] = null
 		setBullets()
 		global.reachEnd = true
+	return target_pos
+	pass
+
+func update_item_pos(child_node):
+	var grid_pos = world_to_map(child_node.get_pos())
+	grid[grid_pos.x][grid_pos.y] = null
+	var new_grid_pos = grid_pos + child_node.direction
+	grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
+	var target_pos = map_to_world(new_grid_pos) + half_tile_size
+	if new_grid_pos.x == 10 or new_grid_pos.y == 10 or new_grid_pos.x == 0 or new_grid_pos.y == 0:
+		grid[new_grid_pos.x][new_grid_pos.y] = null
+		global.fireEnd = true
 	return target_pos
 	pass
 
@@ -224,4 +240,7 @@ func _process(delta):
 		enemy.set_process(true)
 	else:
 		enemy.set_process(false)
+	if global.shooting:
+		shootingArrow()
+		shootArrow.set_process(true)
 

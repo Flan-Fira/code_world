@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+onready var fireball = preload("res://fireball.tscn")
 var direction = Vector2()
 var velocity = Vector2()
 var speed = 0
@@ -19,16 +20,29 @@ func _process(delta):
 	direction = Vector2()
 	if (Input.is_action_pressed("ui_up")):
 		direction.y = -1
-		global.arrowDirection = direction
+		if global.resetFire:
+			global.fireDirection = direction
 	elif (Input.is_action_pressed("ui_down")):
 		direction.y = 1
-		global.arrowDirection = direction
+		if global.resetFire:
+			global.fireDirection = direction
 	elif (Input.is_action_pressed("ui_left")):
 		direction.x = -1
-		global.arrowDirection = direction
+		if global.resetFire:
+			global.fireDirection = direction
 	elif (Input.is_action_pressed("ui_right")):
 		direction.x = 1
-		global.arrowDirection = direction
+		if global.resetFire:
+			global.fireDirection = direction
+		
+	if global.throwFire > 0:
+		if Input.is_action_pressed("ui_accept"):
+			var fire = fireball.instance()
+			get_parent().add_child(fire)
+			fire.set_pos(get_node("Position2D").get_global_pos())
+			global.resetFire = false
+			global.throwFire= global.throwFire - 1
+		
 	if not moving and direction != Vector2():
 		target_direction = direction
 		if grid.is_cell_vacant(get_pos(), target_direction):
