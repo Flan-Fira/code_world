@@ -37,7 +37,7 @@ func update_health():
 		turn_empty("Health 3")
 		turn_empty("Health 2")
 		turn_empty("Health 1")
-		get_tree().change_scene("res://End.tscn")
+		get_tree().change_scene("res://src/UI/End.tscn")
 	else:
 		turn_full("Health 3")
 		turn_empty("Health 2")

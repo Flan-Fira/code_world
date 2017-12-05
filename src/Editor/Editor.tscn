@@ -15,7 +15,18 @@ func _ready():
 	textedit.add_keyword_color(\"def\", Color(0.5, 0.5, 1))
 	textedit.add_keyword_color(\"cw\", Color(0.5, 1, 0.5))
 	textedit.add_keyword_color(\"#\", Color(1, 1, 1))
-	textedit.set_text(\"import cw\\n\\n# edit your code with cw functions\\n# run() is called every step\\ndef run():\\n\\tcw.press_right()\")
+	textedit.set_text(\"import cw\\n\"+
+		\"\\n# edit your code with cw functions\\n\"+
+		\"# run() is called every step\\n\"+
+		\"def run():\\n\"+
+		\"\\tif (cw.get_pos_y() < 5):\\n\"+
+		\"\\t\\tcw.press_down()\\n\"+
+		\"\\telif (cw.get_pos_y() > 5):\\n\"+
+		\"\\t\\tcw.press_up()\\n\"+
+		\"\\tif (cw.get_pos_x() < 9):\\n\"+
+		\"\\t\\tcw.press_right()\\n\"+
+		\"\\telif (cw.get_pos_x() == 9 and cw.get_pos_y() == 5):\\n\"+
+		\"\\t\\tcw.press_right()\\n\")
 
 
 
@@ -23,6 +34,10 @@ func _ready():
 func _on_Play_button_down():
 	global.user_code = textedit.get_text()
 	global.title_screen = 2
+	global.player_rep = Entity.new()
+	global.interpreter = Interpreter.new()
+	global.interpreter.init(global.user_code, global.player_rep)
+	
 	get_tree().change_scene(\"res://src/MapControl/MapControl.tscn\")
 "
 
