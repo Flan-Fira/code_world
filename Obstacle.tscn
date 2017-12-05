@@ -5,6 +5,7 @@
 [node name="Obstacle" type="Node2D"]
 
 editor/display_folded = true
+transform/pos = Vector2( 662, 108 )
 __meta__ = {
 "_edit_group_": true
 }
