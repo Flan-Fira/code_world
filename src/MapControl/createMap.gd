@@ -2,8 +2,7 @@ extends TileMap
 
 var width = 11; var height = 11; var num_grass = 300; var density = 4; var minlength = 2; var maxlength = 4 #density cannot equal 1
 var grid = []; var dir = {0:Vector2(0,-1),1:Vector2(-1,0),2:Vector2(1,0),3:Vector2(0,1)}
-var curr = Vector2(); var step = Vector2(); var rock = 0
-var river_bed = []; var river_dir = [Vector2(1,0),Vector2(-1,0),Vector2(0,1)]
+var curr = Vector2(); var step = Vector2();
 
 # Room type is [Top, Bottom, Left, Right]; 0 = no door, 1 = door
 var room_type = [1,1,1,1]
@@ -40,29 +39,25 @@ func _ready():
 				# Controls Spawning of the Right door
 				if (room_type [3] == 1):
 					set_cellv(Vector2 ( width-1, y),2)
-
-		#river_bed.append(Vector2(i,0))
-		
-
 		
 	generate_map(minlength, maxlength, density, num_grass)
-	#generate_river_bed()
 	return room_type
 	pass
-	
-func grass_rock(curr,dirv,len):
+
+#Sets the tiles inside of the box
+func set_inside(curr,dirv,len):
 	for i in range(1,len,1):
 		if grid[curr.x][curr.y] == -1: return -1
 		set_cell(curr.x,curr.y,1) # set inside
-		#rock = rock + 1
-		#if dirv.x == -1 and dirv.y == 0 and rock > 10: get_node("TileMap").set_cell(curr.x,curr.y,1); rock = 0
 		grid[curr.x][curr.y] = -1
 		curr = curr + dirv
 
+#Creates random tiles
 func rand_coord_tile(density):
 	step = Vector2(density + rand_range(0,width/density),density + rand_range(0,width/density))
 	return step
 	
+#Checks the size of the map
 func calculation_map(minlength, maxlength, density):
 	randomize()
 	rand_coord_tile(density)
@@ -72,8 +67,9 @@ func calculation_map(minlength, maxlength, density):
 	var dirv = dir[dirr]
 	var len = rand_range(minlength, maxlength)
 	len = len + density + 1
-	grass_rock(step, dirv, len)
+	set_inside(step, dirv, len)
 
+#Creates map
 func generate_map(minlength, maxlength, density, num_grass):
 	for count in range(1,num_grass,1):
 		calculation_map(minlength, maxlength, density)
