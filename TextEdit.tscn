@@ -1,0 +1,77 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Text.gd" type="Script" id=1]
+
+[node name="TextEdit" type="TextEdit"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 13.0
+margin/top = 10.0
+margin/right = 806.0
+margin/bottom = 594.0
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+caret/block_caret = false
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+script/script = ExtResource( 1 )
+
+[node name="int" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 338.0
+margin/top = 498.0
+margin/right = 456.0
+margin/bottom = 540.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "INIT"
+flat = false
+
+[node name="run" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 91.0
+margin/top = 507.0
+margin/right = 189.0
+margin/bottom = 544.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "RUN"
+flat = false
+
+[node name="final" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 603.0
+margin/top = 492.0
+margin/right = 694.0
+margin/bottom = 551.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Final"
+flat = false
+
+[connection signal="pressed" from="int" to="." method="_on_int_pressed"]
+
+[connection signal="pressed" from="run" to="." method="_on_run_pressed"]
+
+[connection signal="pressed" from="final" to="." method="_on_final_pressed"]
+
+

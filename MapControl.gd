@@ -15,6 +15,7 @@ onready var red = preload("res://Red.tscn")
 onready var Arrow = preload("res://Arrow.tscn")
 onready var Player = preload("res://Player.tscn")
 onready var Bomb = preload("res://Bomb.tscn")
+onready var Potion = preload("res://Potion.tscn")
 
 func _ready():
 	randomize()
@@ -61,6 +62,9 @@ func _setItems():
 	var bomb = Bomb.instance()
 	bomb.set_pos(map_to_world(Vector2(3,4)) + half_tile_size)
 	add_child(bomb)
+	var potion = Potion.instance()
+	potion.set_pos(map_to_world(Vector2(2,5)) + half_tile_size)
+	add_child(potion)
 	
 func _setDoors():
 	###LEFT door

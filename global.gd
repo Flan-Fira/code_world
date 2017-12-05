@@ -3,7 +3,14 @@ var current_scene = null
 var amountOfArrow = 0
 var bombAll =  false
 var enemies_moving = true
-
+var settingBullet = false
+var reachEnd = false
+var playerTurn = true
+var enemyTurn = false
+var playerPos = Vector2()
+var die = false
+var arrowDirection = Vector2()
+var arrowAppearance = Vector2()
 var title_screen = 0
 
 # Character values
@@ -47,6 +54,23 @@ func create_new_level():
 	last_room = [1,1,1,1]
 	locationX = 13
 	locationY = 13
+
+func reset_game():
+	create_new_level()
+	current_scene = null
+	amountOfArrow = 0
+	bombAll =  false
+	enemies_moving = true
+	settingBullet = false
+	reachEnd = false
+	playerTurn = true
+	enemyTurn = false
+	playerPos = Vector2()
+	die = false
+	arrowDirection = Vector2()
+	arrowAppearance = Vector2()
+	health = 3
+	score = 0
 
 # Tracks the characters position in the global map.
 func move_global_map():
