@@ -182,7 +182,7 @@ func _setDoors():
 	add_child(doorR)
 	
 func random():
-	return randi() % 9+1
+	return (randi() % 9)+1
 	
 func random_X_Y():
 	randiX = random()

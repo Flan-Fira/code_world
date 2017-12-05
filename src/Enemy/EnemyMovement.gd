@@ -23,22 +23,6 @@ func _ready():
 	
 
 func _process(delta):
-#	if global.bombAll:
-#		queue_free()
-#	body = get_node("Area2D").get_overlapping_bodies()
-#	var player = get_node("/root/World/MapControl/Player")
-#	if body.size() != 0:
-#		for area in body:
-#			if global.moveEnemy:
-#				if (area.get_global_pos().x < self.get_global_pos().x):
-#					direction.x = -1
-#				elif (area.get_global_pos().x > self.get_global_pos().x):
-#					direction.x = 1
-#				if (area.get_global_pos().y < self.get_global_pos().y):
-#					direction.y = -1
-#				elif (area.get_global_pos().y > self.get_global_pos().y):
-#					direction.y = 1
-#	if global.enemyTurn:
 	direction = Vector2()
 	var move = randi() % 4+1
 	if move == 1:

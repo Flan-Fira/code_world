@@ -4,8 +4,6 @@
 [ext_resource path="res://src/UI/Title.gd" type="Script" id=2]
 [ext_resource path="res://src/UI/begin-button-2.png" type="Texture" id=3]
 
-
-
 [node name="Sprite" type="Sprite"]
 
 texture = ExtResource( 1 )
