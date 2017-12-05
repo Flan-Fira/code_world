@@ -1,2 +1,6 @@
+import cw
+
+# edit your code with cw functions
+# run() is called every step
 def run():
-	print("apple")
+	cw.press_right()
