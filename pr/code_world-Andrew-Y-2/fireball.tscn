@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://fireball.gd" type="Script" id=1]
-[ext_resource path="res://fireball.jpg" type="Texture" id=2]
+[ext_resource path="res://fire-1.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -10,6 +10,7 @@ extents = Vector2( 16.1625, 16.0727 )
 
 [node name="fireball" type="Area2D"]
 
+transform/pos = Vector2( -91.9865, -0.880257 )
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -25,9 +26,34 @@ script/script = ExtResource( 1 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Particles2D" type="Sprite" parent="."]
+[node name="Particles2D" type="Particles2D" parent="."]
 
-texture = ExtResource( 2 )
+config/amount = 20
+config/lifetime = 2.0
+config/process_mode = 1
+config/texture = ExtResource( 2 )
+params/direction = 180.0
+params/spread = 180.0
+params/linear_velocity = 25.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 1.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 

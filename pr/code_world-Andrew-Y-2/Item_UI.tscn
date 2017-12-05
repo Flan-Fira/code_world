@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://Arrow.gd" type="Script" id=1]
-[ext_resource path="res://arrow.png" type="Texture" id=2]
+[ext_resource path="res://fire-1.png" type="Texture" id=2]
 [ext_resource path="res://Arrow1.gd" type="Script" id=3]
 [ext_resource path="res://Score1.gd" type="Script" id=4]
 
@@ -24,13 +24,13 @@ margin/top = 134.0
 margin/right = 956.0
 margin/bottom = 314.0
 
-[node name="Arrow" type="Sprite" parent="Panel"]
+[node name="FireBall" type="Sprite" parent="Panel"]
 
 transform/pos = Vector2( 38.5853, 30.3543 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Arrows" type="Label" parent="Panel"]
+[node name="Fireball" type="Label" parent="Panel"]
 
 rect/scale = Vector2( 2, 2 )
 focus/ignore_mouse = true

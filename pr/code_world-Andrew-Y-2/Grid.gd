@@ -213,6 +213,29 @@ func update_child_pos(child_node):
 	return target_pos
 	pass
 	
+func update_enemy_pos(child_node):
+	var grid_pos = world_to_map(child_node.get_pos())
+	grid[grid_pos.x][grid_pos.y] = null
+	
+	var new_grid_pos = grid_pos + child_node.direction
+	grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
+	print(child_node.direction)
+	if new_grid_pos.x == 10:
+		grid[new_grid_pos.x][new_grid_pos.y] = null
+		new_grid_pos.x = new_grid_pos.x - 1
+	if new_grid_pos.y == 10:
+		grid[new_grid_pos.x][new_grid_pos.y] = null
+		new_grid_pos.y = new_grid_pos.y -  1
+	if new_grid_pos.x == 0:
+		grid[new_grid_pos.x][new_grid_pos.y] = null
+		new_grid_pos.x = new_grid_pos.x + 1
+	if new_grid_pos.y == 0:
+		grid[new_grid_pos.x][new_grid_pos.y] = null
+		new_grid_pos.y = new_grid_pos.y + 1
+	var target_pos = map_to_world(new_grid_pos) + half_tile_size
+	return target_pos
+	pass
+	
 
 func update_bullet_pos(child_node):
 	var grid_pos = world_to_map(child_node.get_pos())
@@ -241,12 +264,10 @@ func update_item_pos(child_node):
 	pass
 
 func _process(delta):
-	if global.playerTurn:
+	if global.playerTurn or global.noEnemy:
 		player.set_process(true)
 	else:
 		player.set_process(false)
-	if global.enemyTurn:
+	if global.enemyTurn and not global.noEnemy:
 		enemy.set_process(true)
-	else:
-		enemy.set_process(false)
 

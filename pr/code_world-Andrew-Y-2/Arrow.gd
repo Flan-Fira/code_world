@@ -6,8 +6,8 @@ func _ready():
 
 func _enter_scene(body):
 	if(body.get_name() == "Player"):
-		global.amountOfArrow += 1 
-		get_parent().get_parent().get_node("UI/Panel/Arrows").update_arrows()
-		print(global.amountOfArrow)
+		global.throwFire += 1 
+		get_parent().get_parent().get_node("UI/Panel/FireBall").update_arrows()
+		print(global.throwFire)
 		queue_free()
 		

@@ -12,10 +12,11 @@ var die = false
 var arrowDirection = Vector2()
 var arrowAppearance = Vector2()
 var title_screen = 0
-var throwFire = 1
+var throwFire = 0
 var fireEnd = false
 var resetFire = true
 var fireDirection = Vector2()
+var noEnemy = false
 # Character values
 
 var health = 3
