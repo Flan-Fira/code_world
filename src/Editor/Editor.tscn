@@ -1,0 +1,76 @@
+[gd_scene load_steps=2 format=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Panel
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+var textedit
+
+func _ready():
+	textedit = get_node(\"TextEdit\")
+	textedit.add_keyword_color(\"import\", Color(0.5, 0.5, 1))
+	textedit.add_keyword_color(\"def\", Color(0.5, 0.5, 1))
+	textedit.add_keyword_color(\"cw\", Color(0.5, 1, 0.5))
+	textedit.add_keyword_color(\"#\", Color(1, 1, 1))
+	textedit.set_text(\"import cw\\n\\n# edit your code with cw functions\\n# run() is called every step\\ndef run():\\n\\tcw.press_right()\")
+
+
+
+
+func _on_Play_button_down():
+	global.user_code = textedit.get_text()
+	global.title_screen = 2
+	get_tree().change_scene(\"res://src/MapControl/MapControl.tscn\")
+"
+
+[node name="Editor" type="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1024.0
+margin/bottom = 800.0
+script/script = SubResource( 1 )
+
+[node name="TextEdit" type="TextEdit" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1024.0
+margin/bottom = 760.0
+syntax_highlighting = true
+show_line_numbers = true
+highlight_all_occurrences = true
+caret/block_caret = false
+caret/caret_blink = true
+caret/caret_blink_speed = 0.65
+
+[node name="Play" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 5.0
+margin/top = 765.0
+margin/right = 65.0
+margin/bottom = 795.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Play"
+flat = false
+
+[connection signal="button_down" from="Play" to="." method="_on_Play_button_down"]
+
+
