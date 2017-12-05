@@ -42,11 +42,6 @@ var player_rep
 
 # Creates a new global map / level
 func create_global_map():
-	if (interpreter == null):
-		player_rep = Entity.new()
-		interpreter = Interpreter.new()
-		interpreter.init(user_code, player_rep)
-	
 	if (global_map == null):
 		print ("creating map")
 		global_map = []
