@@ -1,8 +1,12 @@
 extends TileMap
+
+#the size of the tile
 var tile_size = get_cell_size()
 var half_tile_size = tile_size/2
 
 enum ENTITY_TYPES {PLAYER, ENEMY, BULLET, ARROW}
+
+#the size of the map
 var grid_size = Vector2(11, 11)
 var grid = []
 var positions = []
@@ -10,9 +14,9 @@ var randiX
 var randiY
 var finding = true
 
+#placement of the object on the map
 var playerX
 var playerY
-
 var arrowX
 var arrowY
 var bombX
@@ -22,6 +26,7 @@ var potionY
 var stairX
 var stairY
 
+#other scene that is needed to be used in this project
 onready var TDoor = preload("res://src/Door/TopDoor.tscn")
 onready var BDoor = preload("res://src/Door/BotDoor.tscn")
 onready var LDoor = preload("res://src/Door/LeftDoor.tscn")
@@ -61,6 +66,8 @@ func _ready():
 		for y in range(grid_size.y):
 			grid[x].append(null)
 	set_process(true)
+	
+	#function to set the items, player, and enemy
 	_setPlayer()
 	_setItems()
 	_setDoors()
@@ -68,8 +75,11 @@ func _ready():
 	#setBullets()
 	
 func _setEnemies():
+	#get the scene 
 	enemy = red.instance()
+	#place the node onto the map
 	enemy.set_pos(map_to_world(Vector2(5,5)) + half_tile_size)
+	#add it as a child to this scene
 	add_child(enemy)
 	
 	var tile = global.room_rep.get_tile(5, 5)
@@ -180,10 +190,12 @@ func _setDoors():
 	var doorR = RDoor.instance()
 	doorR.set_pos(map_to_world(Vector2(10,5)) + half_tile_size)
 	add_child(doorR)
-	
+
+#random for placement of the items
 func random():
 	return (randi() % 9)+1
 	
+#random for X and Y
 func random_X_Y():
 	randiX = random()
 	randiY = random()
@@ -192,20 +204,28 @@ func random_X_Y():
 func can_move_ent(ent, direction):
 	return ent.move_tile_relative(direction.x, direction.y)
 
+#function to check if the space is open to move
 func is_cell_vacant(pos, direction):
 	var grid_pos = world_to_map(pos) + direction
+	
+	#not over the length or width of the map
 	if grid_pos.x < grid_size.x and grid_pos.x >= 0:
 		if grid_pos.y < grid_size.y and grid_pos.y >= 0:
 			return true if grid[grid_pos.x][grid_pos.y] == null else false
 	return false
 	
+#movement for player and enemy
 func update_child_pos(child_node):
+	
+	#get the character current location then erase it
 	var grid_pos = world_to_map(child_node.get_pos())
 	grid[grid_pos.x][grid_pos.y] = null
 	
+	#create the new location
 	var new_grid_pos = grid_pos + child_node.direction
 	grid[new_grid_pos.x][new_grid_pos.y] = child_node.type
 	
+	#make the new location on the map
 	var target_pos = map_to_world(new_grid_pos) + half_tile_size
 	return target_pos
 	pass
@@ -224,6 +244,7 @@ func update_bullet_pos(child_node):
 	return target_pos
 	pass
 
+#Control the turn between enemy and player
 func _process(delta):
 	if global.playerTurn:
 		player.set_process(true)
